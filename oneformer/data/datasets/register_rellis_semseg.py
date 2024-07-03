@@ -16,8 +16,8 @@ def get_rellis_dicts(img_dir, split_filename):
     for idx, v in enumerate(data):
         record = {}
         
-        img_filename = os.path.join(img_dir, "image", v + ".jpg")
-        ann_filename = os.path.join(img_dir, "annotation", v + "_orig.png")
+        img_filename = os.path.join(img_dir, "image", v.strip() + ".jpg")
+        ann_filename = os.path.join(img_dir, "annotation", v.strip() + "_orig.png")
         height, width = cv2.imread(img_filename).shape[:2]
         
         record["file_name"] = img_filename
