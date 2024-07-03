@@ -24,7 +24,7 @@ def get_rellis_dicts(img_dir, split_filename):
         record["image_id"] = idx
         record["height"] = height
         record["width"] = width
-        record["sem_seg_file_name "] = ann_filename
+        record["sem_seg_file_name"] = ann_filename
       
         dataset_dicts.append(record)
     return dataset_dicts
