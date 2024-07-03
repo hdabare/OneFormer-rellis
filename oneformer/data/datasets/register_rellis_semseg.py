@@ -1,0 +1,44 @@
+import detectron2
+from detectron2.utils.logger import setup_logger
+setup_logger()
+
+# import some common libraries
+import numpy as np
+import os, json, cv2, random
+from google.colab.patches import cv2_imshow
+
+# import some common detectron2 utilities
+from detectron2 import model_zoo
+from detectron2.engine import DefaultPredictor
+from detectron2.config import get_cfg
+from detectron2.utils.visualizer import Visualizer
+from detectron2.data import MetadataCatalog, DatasetCatalog
+
+def get_rellis_dicts(img_dir, split_filename):
+    split_file = os.path.join(img_dir, split_filename)
+    with open(split_file) as f:
+        data = f.readlines()
+
+    dataset_dicts = []
+    for idx, v in enumerate(data):
+        record = {}
+        
+        img_filename = os.path.join(img_dir, "image", v + ".jpg")
+        ann_filename = os.path.join(img_dir, "annotation", v + "_orig.png")
+        height, width = cv2.imread(img_filename).shape[:2]
+        
+        record["file_name"] = img_filename
+        record["image_id"] = idx
+        record["height"] = height
+        record["width"] = width
+        record["sem_seg_file_name "] = ann_filename
+      
+        dataset_dicts.append(record)
+    return dataset_dicts
+
+for d in ["train", "val"]:
+    DatasetCatalog.register("rellis_" + d, lambda d=d: get_rellis_dicts("/home/hdabare/GANav-offroad/data/rellis/", d + ".txt"))
+    MetadataCatalog.get("rellis_" + d).set(stuff_classes=["void", "dirt", "grass", "tree", "pole", "water", "sky", "vehicle", 
+            "object", "asphalt", "building", "log", "person", "fence", "bush", 
+            "concrete", "barrier", "puddle", "mud", "rubble"])
+rellis_metadata = MetadataCatalog.get("rellis_train")

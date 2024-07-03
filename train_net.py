@@ -53,6 +53,7 @@ from detectron2.utils.logger import setup_logger
 from oneformer import (
     COCOUnifiedNewBaselineDatasetMapper,
     OneFormerUnifiedDatasetMapper,
+    SemanticOneFormerCustomDatasetMapper,
     InstanceSegEvaluator,
     SemanticSegmentorWithTTA,
     add_oneformer_config,
@@ -164,6 +165,8 @@ class Trainer(DefaultTrainer):
         elif cfg.INPUT.DATASET_MAPPER_NAME == "coco_unified_lsj":
             mapper = COCOUnifiedNewBaselineDatasetMapper(cfg, True)
             return build_detection_train_loader(cfg, mapper=mapper)
+        elif cfg.INPUT.DATASET_MAPPER_NAME == "semantic_oneformer":
+            mapper = SemanticOneFormerCustomDatasetMapper(cfg, True)
         else:
             mapper = None
             return build_detection_train_loader(cfg, mapper=mapper)
