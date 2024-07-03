@@ -25,7 +25,6 @@ def get_rellis_dicts(img_dir, split_filename):
         record["height"] = height
         record["width"] = width
         record["sem_seg_file_name"] = ann_filename
-        record["annotations"] = []
       
         dataset_dicts.append(record)
     return dataset_dicts
