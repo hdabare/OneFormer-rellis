@@ -33,5 +33,5 @@ for d in ["train", "val"]:
     DatasetCatalog.register("rellis_" + d, lambda d=d: get_rellis_dicts("/home/hdabare/GANav-offroad/data/rellis/", d + ".txt"))
     MetadataCatalog.get("rellis_" + d).set(stuff_classes=["void", "dirt", "grass", "tree", "pole", "water", "sky", "vehicle", 
             "object", "asphalt", "building", "log", "person", "fence", "bush", 
-            "concrete", "barrier", "puddle", "mud", "rubble"])
+            "concrete", "barrier", "puddle", "mud", "rubble"], thing_dataset_id_to_contiguous_id={0:0, 1:1, 2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8, 9:9, 10:10, 11:11, 12:12, 13:13, 14:14, 15:15, 16:16, 17:17, 18:18, 19:19})
 rellis_metadata = MetadataCatalog.get("rellis_train")
