@@ -43,4 +43,4 @@ for d in ["train", "val"]:
             "concrete", "barrier", "puddle", "mud", "rubble"],
             ignore_label=0,
             thing_dataset_id_to_contiguous_id={0:0, 1:1, 2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8, 9:9, 10:10, 11:11, 12:12, 13:13, 14:14, 15:15, 16:16, 17:17, 18:18, 19:19})
-       MetadataCatalog.get("rellis_test").set(evaluator_type="sem_seg")
+    MetadataCatalog.get("rellis_test").set(evaluator_type="sem_seg")
