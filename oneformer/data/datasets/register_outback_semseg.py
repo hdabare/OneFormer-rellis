@@ -29,26 +29,6 @@ def get_outback_dicts(img_dir, split_filename):
         dataset_dicts.append(record)
     return dataset_dicts
 
-[[0, 0, 0, 0], #BACKGROUND 0 0
-[140, 255, 25, 255], #GRASS_TREE 1 5
-[140, 25, 255, 255], #POLE 2 5
-[255, 197, 25, 255], #TREE 3 5
-[25, 255, 82, 255], #LEAVES 4 1
-[25, 82, 255, 255], #FENCE_NET 5 5
-[255, 25, 197, 255], #LOG 6 5 
-[255, 111, 25, 255], #GRASS 7 2
-[226, 255, 25, 255], #ROAD_SIGN 8 5 
-[54, 255, 25, 255], #SMALL_BRANCH 9 3
-[0, 0, 0, 255], #GRASS 7 2
-[25, 255, 168, 255], #GRAVEL 10 2
-[25, 168, 255, 255], #GROUND 11 1
-[54, 25, 255, 255], #HORIZON 12 0
-[226, 25, 255, 255], # ROOTS 13 5
-[255, 25, 111, 255], #SKY 14 0
-[255, 68, 25, 255], #DELINEATOR 15 5
-[255, 154, 25, 255] #ROCK 16 5
-                 ]
-
 for d in ["train", "val"]:
     DatasetCatalog.register("outback_" + d, lambda d=d: get_outback_dicts("/home/hdabare/GANav-offroad/data/outback/", d + ".txt"))
     MetadataCatalog.get("outback_" + d).set(stuff_classes=[
