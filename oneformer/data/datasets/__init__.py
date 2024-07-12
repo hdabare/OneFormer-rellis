@@ -7,4 +7,5 @@ from . import (
     register_mapillary_vistas,
     register_mapillary_vistas_panoptic,
     register_rellis_semseg,
+    register_outback_semseg,
 )
