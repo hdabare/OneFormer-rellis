@@ -18,6 +18,8 @@ import cv2
 import numpy as np
 import tqdm
 
+import torchvision.utils as tutils
+
 from detectron2.config import get_cfg
 from detectron2.data.detection_utils import read_image
 from detectron2.projects.deeplab import add_deeplab_config
@@ -111,6 +113,9 @@ if __name__ == "__main__":
             img = read_image(path, format="BGR")
             start_time = time.time()
             predictions, visualized_output = demo.run_on_image(img, args.task)
+            pred = predictions["sem_seg"].argmax(dim=0).to(demo.cpu_device)
+            tutils.save_image(pred, "test_pred.png")
+            logger.info(f"predictions shape")
             logger.info(
                 "{}: {} in {:.2f}s".format(
                     path,
