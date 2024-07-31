@@ -155,7 +155,7 @@ if __name__ == "__main__":
                     for k in visualized_output.keys():
                         os.makedirs(k, exist_ok=True)
                         out_filename = os.path.join(k, args.output)
-                        logger.info(out_filename)
+                        logger.info(out_filename.replace(".png", "_out.png"))
                         pred = predictions["sem_seg"].argmax(dim=0).to(demo.cpu_device, torch.uint8).numpy()
                         out = wanerie_seq_to_raw(pred)
                         cv2.imwrite(out_filename.replace(".png", "pred.png"), pred)
