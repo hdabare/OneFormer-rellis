@@ -161,7 +161,7 @@ if __name__ == "__main__":
                         cv2.imwrite(out_filename.replace(".png", "_pred.png"), pred)
                         Image.fromarray(out.astype(np.uint8)).save(out_filename.replace(".png", "_pred_color.png"))
                         # cv2.imwrite(, out)
-                        visualized_output[k].save(out_filename.replace(".png", "out.png"))    
+                        visualized_output[k].save(out_filename.replace(".png", "_out.png"))    
                 else:
                     for k in visualized_output.keys():
                         opath = os.path.join(args.output, k)    
