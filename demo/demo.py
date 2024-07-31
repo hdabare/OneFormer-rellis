@@ -114,7 +114,7 @@ if __name__ == "__main__":
             start_time = time.time()
             predictions, visualized_output = demo.run_on_image(img, args.task)
             pred = predictions["sem_seg"].argmax(dim=0).to(demo.cpu_device)
-            tutils.save_image(pred, "test_pred.png")
+            tutils.save_image(pred, "semantic_inference/test_pred.png")
             logger.info(f"predictions shape")
             logger.info(
                 "{}: {} in {:.2f}s".format(
