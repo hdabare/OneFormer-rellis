@@ -158,8 +158,8 @@ if __name__ == "__main__":
                         logger.info(out_filename.replace(".png", "_out.png"))
                         pred = predictions["sem_seg"].argmax(dim=0).to(demo.cpu_device, torch.uint8).numpy()
                         out = wanerie_seq_to_raw(pred)
-                        cv2.imwrite(out_filename.replace(".png", "pred.png"), pred)
-                        Image.fromarray(out.astype(np.uint8)).save(out_filename.replace(".png", "pred_color.png"))
+                        cv2.imwrite(out_filename.replace(".png", "_pred.png"), pred)
+                        Image.fromarray(out.astype(np.uint8)).save(out_filename.replace(".png", "_pred_color.png"))
                         # cv2.imwrite(, out)
                         visualized_output[k].save(out_filename.replace(".png", "out.png"))    
                 else:
