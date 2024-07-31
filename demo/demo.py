@@ -113,7 +113,7 @@ if __name__ == "__main__":
             img = read_image(path, format="BGR")
             start_time = time.time()
             predictions, visualized_output = demo.run_on_image(img, args.task)
-            pred = predictions["sem_seg"].argmax(dim=0).to(demo.cpu_device)
+            pred = predictions["sem_seg"].argmax(dim=0).to(demo.cpu_device, torch.uint8)
             tutils.save_image(pred, "semantic_inference/test_pred.png")
             logger.info(f"predictions shape")
             logger.info(
