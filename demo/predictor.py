@@ -23,7 +23,7 @@ class VisualizationDemo(object):
                 Useful since the visualization logic can be slow.
         """
         self.metadata = MetadataCatalog.get(
-            cfg.DATASETS.TEST_PANOPTIC[0] if len(cfg.DATASETS.TEST_PANOPTIC) else "__unused"
+            cfg.DATASETS.TEST_SEMANTIC[0] if len(cfg.DATASETS.TEST_SEMANTIC) else "__unused"
         )
         if 'cityscapes_fine_sem_seg_val' in cfg.DATASETS.TEST_PANOPTIC[0]:
             from cityscapesscripts.helpers.labels import labels
