@@ -37,6 +37,34 @@ from predictor import VisualizationDemo
 # constants
 WINDOW_NAME = "OneFormer Demo"
 
+wanerie_IDs = [0, 1, 2 , 3 ,4 ,5 ,6 ,7 ,8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+wanerie_PALETTE = [[0, 0, 0], #BACKGROUND 0 0
+                      [228, 101, 58], #GRASS_TREE 1 5
+                      [96, 160, 160], #POLE 2 5
+                      [144, 96, 0], #TREE 3 5
+                      [224, 192, 32], #LEAVES 4 1
+                     [221, 199, 62], #FENCE_NET 5 5
+                      [209, 95, 107], #LOG 6 5 
+                      [64, 128, 32], #GRASS 7 1
+                      [252, 4, 217], #ROAD_SIGN 8 5 
+                      [11, 89, 240], #SMALL BRANCH 9 5
+                      [192, 128, 32], #GRAVEL 10 1
+                      [64, 0, 160], #GROUND 11 1
+                      [58, 229, 5], #HORIZON 12 0
+                      [188, 27, 62], # ROOTS 13 5
+                     [80, 128, 64], #SKY 14 0
+                      [54, 244, 241], #DELINEATOR 15 5
+                      [160, 224, 224], #ROCK 16 5
+                   [32, 224, 224] #ROAD 17 1
+                 ]
+
+def wanerie_seq_to_raw(seg):
+    h, w = seg.shape
+    out = np.zeros((h, w, 3))
+    for idx, i in enumerate(wanerie_PALETTE):
+        out[(seg==idx)] = i
+    return out
+
 def setup_cfg(args):
     # load config from file and command-line arguments
     cfg = get_cfg()
@@ -113,10 +141,6 @@ if __name__ == "__main__":
             img = read_image(path, format="BGR")
             start_time = time.time()
             predictions, visualized_output = demo.run_on_image(img, args.task)
-            pred = predictions["sem_seg"].argmax(dim=0).to(demo.cpu_device, torch.uint8).numpy()
-            cv2.imwrite("semantic_inference/test_pred.png", pred)
-            # tutils.save_image(pred, "semantic_inference/test_pred.png")
-            logger.info(f"predictions shape")
             logger.info(
                 "{}: {} in {:.2f}s".format(
                     path,
@@ -131,6 +155,11 @@ if __name__ == "__main__":
                     for k in visualized_output.keys():
                         os.makedirs(k, exist_ok=True)
                         out_filename = os.path.join(k, args.output)
+
+                        pred = predictions["sem_seg"].argmax(dim=0).to(demo.cpu_device, torch.uint8).numpy()
+                        out = wanerie_seq_to_raw(pred)
+                        cv2.imwrite(out_filename.replace("out.png", "pred.png"), pred)
+                        cv2.imwrite(out_filename.replace("out.png", "pred_color.png"), out)
                         visualized_output[k].save(out_filename)    
                 else:
                     for k in visualized_output.keys():
